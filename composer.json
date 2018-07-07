@@ -1,0 +1,12 @@
+{
+    "name": "jitendra/breezy-pdf-lite-php",
+    "description": "Php client for breezy-pdf-lite, an HTML -> PDF service powered by Google Chrome (breezypdf.com)",
+    "type": "library",
+    "authors": [
+        {
+            "name": "jitendra-1217",
+            "email": "jitendraojha1217@gmail.com"
+        }
+    ],
+    "require": {}
+}
