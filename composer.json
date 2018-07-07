@@ -8,5 +8,16 @@
             "email": "jitendraojha1217@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "rmccue/requests": "^1.7",
+        "php": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "BreezyPdfLite": "src/"
+        }
+    }
 }
