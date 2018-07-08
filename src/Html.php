@@ -5,7 +5,8 @@ namespace BreezyPdfLite;
 use Requests;
 
 /**
- *
+ * Html:
+ * Represents html content which is input to breezypdf
  */
 class Html
 {
@@ -27,6 +28,10 @@ class Html
      */
     protected $remoteUrl;
 
+    /**
+     * @param  string $content
+     * @return Html
+     */
     public static function fromString(string $content): Html
     {
         $instance = new static;
@@ -34,6 +39,10 @@ class Html
         return $instance;
     }
 
+    /**
+     * @param  string $path
+     * @return Html
+     */
     public static function fromFile(string $path): Html
     {
         $instance = new static;
@@ -42,6 +51,10 @@ class Html
         return $instance;
     }
 
+    /**
+     * @param  string $url
+     * @return Html
+     */
     public static function fromRemote(string $url): Html
     {
         $response = Requests::get($url);
@@ -54,11 +67,25 @@ class Html
         return $instance;
     }
 
+    /**
+     * Writes meta tags in the read html content against given options
+     * @param  array  $options
+     * @return Html
+     */
     public function applyOptions(array $options): Html
     {
+        $meta = '';
+        foreach ($options as $key => $value) {
+            $meta .= "<meta name=\"breezy-pdf-{$key}\" content=\"{$value}\">";
+        }
+        $this->content .= $meta;
         return $this;
     }
 
+    /**
+     * Returns html content as string
+     * @return string
+     */
     public function asString(): string
     {
         return $this->content;
