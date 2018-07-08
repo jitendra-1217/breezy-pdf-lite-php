@@ -2,7 +2,7 @@
 
 namespace BreezyPdfLite;
 
-use Requests;
+use Requests_Session;
 use RuntimeException;
 
 /**
@@ -25,6 +25,12 @@ class BreezyPdfLite
     protected $token;
 
     /**
+     * Http client
+     * @var Requests_Session
+     */
+    protected $http;
+
+    /**
      * @var Options
      */
     protected $options;
@@ -40,13 +46,15 @@ class BreezyPdfLite
     protected $pdf;
 
     /**
-     * @param string $api
-     * @param string $token
+     * @param string           $api
+     * @param string           $token
+     * @param Requests_Session $http
      */
-    public function __construct(string $api, string $token)
+    public function __construct(string $api, string $token, $http = null)
     {
         $this->api = $api;
         $this->token = $token;
+        $this->http = $http ?: new Requests_Session;
     }
 
     /**
@@ -89,7 +97,7 @@ class BreezyPdfLite
      */
     public function readHtmlFromRemote(string $url): BreezyPdfLite
     {
-        $this->html = Html::fromRemote($url);
+        $this->html = Html::fromRemote($url, $this->http);
         return $this;
     }
 
@@ -132,7 +140,7 @@ class BreezyPdfLite
         $headers = ['Authorization' => "Bearer {$this->token}"];
         $options = $this->options ? $this->options->all() : [];
         $body = $this->html->applyOptions($options)->asString();
-        $response = Requests::post($endpoint, $headers, $body);
+        $response = $this->http->post($endpoint, $headers, $body);
         if ($response->status_code > 201) {
             throw new RuntimeException('remote breezy service returned non 200 response');
         }

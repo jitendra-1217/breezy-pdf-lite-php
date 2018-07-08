@@ -2,7 +2,7 @@
 
 namespace BreezyPdfLite;
 
-use Requests;
+use Requests_Session;
 
 /**
  * Html:
@@ -52,12 +52,13 @@ class Html
     }
 
     /**
-     * @param  string $url
+     * @param  string           $url
+     * @param  Requests_Session $http
      * @return Html
      */
-    public static function fromRemote(string $url): Html
+    public static function fromRemote(string $url, $http): Html
     {
-        $response = Requests::get($url);
+        $response = $http->get($url);
         if ($response->status_code > 200) {
             throw new RuntimeException("failed to read html content from remote url: {$url}");
         }

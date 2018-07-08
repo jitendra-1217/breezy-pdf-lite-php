@@ -10,10 +10,8 @@ Php client for [breezy-pdf-lite](https://breezypdf.com), an HTML -> PDF service 
 
 ## Installation
 
-This is not published on packagist yet, awaiting addition of tests for first release. Please include this package by adding this repository in your composer.json ([ref](https://getcomposer.org/doc/05-repositories.md)) as a source.
-
 ```sh
-composer require jitendra-1217/breezy-pdf-lite-php
+composer require jitendra/breezy-pdf-lite-php
 ```
 
 ## Usage & Examples
